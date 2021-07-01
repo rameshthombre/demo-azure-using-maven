@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="b2127baf-e434-43e0-9bb1-fd13527b89cd" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="demo-azure-using-mavenFlow" doc:id="eb72be12-9534-443f-b2f3-fb30b7af1f5a" >
+		<http:listener doc:name="Listener" doc:id="8f6de0c2-f5ac-4119-9652-8bf5e7d31e6d" config-ref="HTTP_Listener_config" path="/azure"/>
+		<ee:transform doc:name="Transform Message" doc:id="f8bc959a-dac5-47d7-9de7-2a1bb5b0e1be" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"Message" : "Azure Pipeline Using Maven - 1 July, 2021"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="payload" doc:id="7d72d623-8edc-4dd1-9d23-61b5f907fdd4" message="#[payload]"/>
+	</flow>
+</mule>
