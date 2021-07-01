@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	"Message" : "Azure Pipeline Using Maven - 1 July, 2021"
+	"Message" : "Azure Pipeline Using Maven Dated " ++ now() as Date
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
